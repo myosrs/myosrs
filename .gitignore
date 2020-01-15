@@ -1,0 +1,19 @@
+# Built Files
+build
+
+# Dependancies
+node_modules
+node_modules_orig
+
+# System Files
+.DS_Store
+
+# Log Files
+*.log
+
+# NPM Package Lock
+package-lock.json
+
+# Environment Variables
+.env*
+!.env.example

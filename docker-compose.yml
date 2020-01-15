@@ -1,0 +1,35 @@
+version: "3"
+services:
+  accounts-service:
+    build: "./accounts-service"
+    depends_on:
+      - accounts-service-db
+    environment:
+      - TYPEORM_URL=mysql://root:password@accounts-service-db/db
+    volumes:
+      - ./accounts-service:/opt/app
+
+  accounts-service-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+    image: mysql:5.7.20
+    ports:
+      - 0.0.0.0:7200:3306
+
+  users-service:
+    build: "./users-service"
+    depends_on:
+      - users-service-db
+    environment:
+      - TYPEORM_URL=mysql://root:password@users-service-db/db
+    volumes:
+      - ./users-service:/opt/app
+
+  users-service-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+    image: mysql:5.7.20
+    ports:
+      - 0.0.0.0:7201:3306

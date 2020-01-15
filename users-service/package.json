@@ -1,0 +1,23 @@
+{
+  "name": "users-service",
+  "version": "1.0.0",
+  "main": "build/app.js",
+  "scripts": {
+    "build": "tsc",
+    "db": "typeorm",
+    "dev": "nodemon --watch src -e tsx,ts,jsx,js --exec npm run dev:start",
+    "dev:start": "npm-run-all build start --silent",
+    "format": "prettier ./{src,__{tests,mocks}__}/**/**/*.{js,jsx,ts,tsx} --write",
+    "lint": "eslint src --ext=\".js,.jsx,.ts,.tsx\"",
+    "start": "node ./build/app.js",
+    "test": "echo \"Write tests! -> myosrs/users-service\""
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.4"
+  },
+  "license": "AGPL-3.0"
+}
