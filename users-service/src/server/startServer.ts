@@ -14,10 +14,9 @@ export const startServer = async () => {
     const database = await createConnection({
       name: "default",
       type: "mysql",
-      database: "db",
       url: process.env.DATABASE_URL,
-      entities: [__dirname + "/../database/entities/**/*.{ts,js}"],
-      migrations: [__dirname + "/../database/migrations/**/*.{ts,js}"],
+      entities: [__dirname + "/database/entities/**/*.{ts,js}"],
+      migrations: [__dirname + "/database/migrations/**/*.{ts,js}"],
       synchronize: true,
       logging: true,
       extra: {
@@ -56,11 +55,11 @@ export const startServer = async () => {
     /**
      * Bind the instantiated processes to the specified port; or default to 4000
      */
-    app.listen({ hostname: "0.0.0.0", port: process.env.PORT || 7100 }, () => {
+    app.listen({ hostname: "0.0.0.0", port: process.env.PORT || 7101 }, () => {
       console.log(
         `🚀 ${process.env.npm_package_name} (v${
           process.env.npm_package_version
-        }) ready on port ${process.env.PORT || 7100}`
+        }) ready on port ${process.env.PORT || 7101}`
       )
     })
   } catch (error) {

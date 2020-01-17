@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "build/app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf ./build && tsc",
     "db": "typeorm",
     "dev": "nodemon --watch src -e tsx,ts,jsx,js --exec npm run dev:start",
     "dev:start": "npm-run-all build start --silent",

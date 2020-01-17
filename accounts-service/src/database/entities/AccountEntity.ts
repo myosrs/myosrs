@@ -1,8 +1,8 @@
 import { differenceInMinutes } from "date-fns"
 import { Column, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm"
 
-@Entity({ name: "players" })
-export class PlayerEntity {
+@Entity({ name: "accounts" })
+export class AccountEntity {
   @PrimaryColumn() name!: string
 
   /**
@@ -27,11 +27,11 @@ export class PlayerEntity {
   @Column("simple-json") alchemical_hydra!: { rank: number; count: number }
   @Column("simple-json") barrows_chests!: { rank: number; count: number }
   @Column("simple-json") bryophyta!: { rank: number; count: number }
-  @Column("simple-json", { nullable: true }) callisto!: {
+  @Column("simple-json") callisto!: {
     rank: number
     count: number
   }
-  @Column("simple-json", { nullable: true }) cerberus!: {
+  @Column("simple-json") cerberus!: {
     rank: number
     count: number
   }

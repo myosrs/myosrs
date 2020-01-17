@@ -1,5 +1,5 @@
 import slugify from "slugify"
-import { PlayerEntity } from "../database/entities/PlayerEntity"
+import { AccountEntity } from "../database/entities/AccountEntity"
 
 const skillsList = [
   "Overall",
@@ -201,9 +201,9 @@ export class JagexPlayer {
 }
 
 export class MyOSRSPlayer {
-  player: PlayerEntity
+  player: AccountEntity
 
-  constructor(player: PlayerEntity) {
+  constructor(player: AccountEntity) {
     this.player = player
   }
 

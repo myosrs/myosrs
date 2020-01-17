@@ -5,7 +5,10 @@ services:
     depends_on:
       - accounts-service-db
     environment:
+      - DATABASE_URL=mysql://root:password@accounts-service-db/db
       - TYPEORM_URL=mysql://root:password@accounts-service-db/db
+    ports:
+      - 7100:7100
     volumes:
       - ./accounts-service:/opt/app
 
@@ -22,7 +25,10 @@ services:
     depends_on:
       - users-service-db
     environment:
+      - DATABASE_URL=mysql://root:password@users-service-db/db
       - TYPEORM_URL=mysql://root:password@users-service-db/db
+    ports:
+      - 7101:7101
     volumes:
       - ./users-service:/opt/app
 
