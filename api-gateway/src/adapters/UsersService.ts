@@ -14,7 +14,6 @@ export class UsersService {
       .post(`${USERS_SERVICE_URI}/users`, { json: { email, password } })
       .json();
 
-    console.log(body);
     return body;
   }
 }
