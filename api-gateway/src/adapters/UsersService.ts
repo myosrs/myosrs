@@ -2,6 +2,7 @@ import got from "got";
 
 const USERS_SERVICE_URI = "http://users-service:7101";
 
+// TODO: stronger typings
 type CreateUserType = {
   email: string;
   password: string;
@@ -12,6 +13,8 @@ export class UsersService {
     const body = await got
       .post(`${USERS_SERVICE_URI}/users`, { json: { email, password } })
       .json();
+
+    console.log(body);
     return body;
   }
 }

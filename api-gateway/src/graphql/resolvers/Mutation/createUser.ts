@@ -1,11 +1,18 @@
 import { UsersService } from "../../../adapters/UsersService";
 
+// TODO: Improving typing here
+type UserData = { data: User }
+type User = {
+  id: string;
+  email: string;
+};
+
 // root, args, context, info
 export const createUserResolver = async (
   _: Object,
   { email, password }: any
 ) => {
-  const user = await UsersService.create({ email, password });
+  const user = await UsersService.create({ email, password }) as UserData;
 
-  return user;
+  return user.data;
 };
