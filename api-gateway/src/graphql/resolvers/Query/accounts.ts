@@ -1,7 +1,5 @@
+import { AccountsService } from "../../../adapters/AccountsService";
+
 export const accountsResolver = async () => {
-  return [
-    {
-      name: "Paqt"
-    }
-  ];
+  return await AccountsService.all();
 };

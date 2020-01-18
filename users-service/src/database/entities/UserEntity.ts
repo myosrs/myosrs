@@ -20,7 +20,7 @@ export class UserEntity {
   @Column()
   email!: string
 
-  @Column() password!: string
+  @Column() passwordHash!: string
 
   @CreateDateColumn() createdAt!: Date
   @UpdateDateColumn() updatedAt!: Date

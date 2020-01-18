@@ -5,8 +5,8 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "db": "typeorm",
-    "dev": "nodemon --watch src -e tsx,ts,jsx,js --exec npm run dev:start",
-    "dev:start": "npm-run-all build start --silent",
+    "dev": "nodemon -L --watch src -e tsx,ts,jsx,js --exec npm run dev:start",
+    "dev:start": "npm-run-all build start",
     "format": "prettier ./{src,__{tests,mocks}__}/**/**/*.{js,jsx,ts,tsx} --write",
     "lint": "eslint src --ext=\".js,.jsx,.ts,.tsx\"",
     "start": "node ./build/app.js",

@@ -2,13 +2,14 @@ import { ApolloServer } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
-
 import { resolvers } from "../graphql/resolvers";
 import { typeDefs } from "../graphql/typeDefs";
+import { formatGraphQLErrors } from "./formatGraphQLErrors";
 
 export const startServer = async () => {
   try {
     const apolloServer = new ApolloServer({
+      formatError: formatGraphQLErrors,
       resolvers,
       typeDefs
     });
