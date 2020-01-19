@@ -9,6 +9,7 @@ import { formatGraphQLErrors } from "./formatGraphQLErrors";
 export const startServer = async () => {
   try {
     const apolloServer = new ApolloServer({
+      context: ctx => ctx,
       formatError: formatGraphQLErrors,
       resolvers,
       typeDefs

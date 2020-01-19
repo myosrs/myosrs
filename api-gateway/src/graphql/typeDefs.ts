@@ -1,6 +1,8 @@
 import { gql } from "apollo-server";
 
 export const typeDefs = gql`
+  scalar Date
+
   type Skill {
     rank: Int
     level: Int
@@ -19,11 +21,19 @@ export const typeDefs = gql`
     email: String!
   }
 
+  type UserSession {
+    createdAt: Date!
+    expiresAt: Date!
+    id: ID!
+    user: User!
+  }
+
   type Query {
     accounts: [Account!]!
   }
 
   type Mutation {
     createUser(email: String!, password: String!): User!
+    createUserSession(email: String!, password: String!): UserSession!
   }
 `;
