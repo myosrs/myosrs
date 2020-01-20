@@ -17,6 +17,10 @@ type CreateUserSessionType = {
   password: string;
 };
 
+type FetchSessionType = {
+  sessionId: string;
+};
+
 export class UsersService {
   static async create({ email, password }: CreateUserType) {
     const body = await got
@@ -35,6 +39,14 @@ export class UsersService {
   static async createSession({ email, password }: CreateUserSessionType) {
     const body = await got
       .post(`${USERS_SERVICE_URI}/sessions`, { json: { email, password } })
+      .json();
+
+    return body;
+  }
+
+  static async fetchSession({ sessionId }: FetchSessionType) {
+    const body = await got
+      .get(`${USERS_SERVICE_URI}/sessions/${sessionId}`)
       .json();
 
     return body;

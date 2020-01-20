@@ -45,4 +45,24 @@ export class SessionController implements BaseController {
       return next(e);
     }
   };
+
+  static show = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userSessionRepository = getRepository(UserSessionEntity);
+      const userSession = await userSessionRepository.findOneOrFail({
+        where: {
+          id: req.params.sessionId
+        },
+        relations: ["user"]
+      });
+
+      if (!userSession) return next(new Error("Invalid Session ID"));
+
+      return res.send({
+        data: { ...userSession, userId: userSession.user.id }
+      });
+    } catch (e) {
+      return next(e);
+    }
+  };
 }

@@ -30,6 +30,7 @@ export const typeDefs = gql`
 
   type Query {
     accounts: [Account!]!
+    userSession(me: Boolean!): UserSession
   }
 
   type Mutation {

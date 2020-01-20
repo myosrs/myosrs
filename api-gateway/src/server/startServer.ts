@@ -5,6 +5,7 @@ import express from "express";
 import { resolvers } from "../graphql/resolvers";
 import { typeDefs } from "../graphql/typeDefs";
 import { formatGraphQLErrors } from "./formatGraphQLErrors";
+import { injectSession } from "./injectSession";
 
 export const startServer = async () => {
   try {
@@ -25,6 +26,8 @@ export const startServer = async () => {
         credentials: true
       })
     );
+
+    app.use(injectSession);
 
     apolloServer.applyMiddleware({
       app,
