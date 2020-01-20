@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express";
-import { BaseController } from "./BaseController";
-import { UserEntity } from "../database/entities/UserEntity";
+import { genSaltSync, hashSync } from "bcryptjs";
+import { NextFunction, Request, Response } from "express";
 import { getRepository } from "typeorm";
 import uuid from "uuid/v4";
-import { hashSync, genSaltSync } from "bcryptjs";
+import { UserEntity } from "../database/entities/UserEntity";
+import { BaseController } from "./BaseController";
 
 export class UserController implements BaseController {
   static index = async (req: Request, res: Response, next: NextFunction) => {
@@ -31,11 +31,22 @@ export class UserController implements BaseController {
       console.error(error);
       return next(error);
     }
-
-    return res.send({});
   };
-  static show = (req: Request, res: Response, next: NextFunction) => {
-    return res.send({});
+  static show = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userRepository = getRepository(UserEntity);
+      const user = await userRepository.findOneOrFail({
+        where: {
+          id: req.params.userId
+        }
+      });
+
+      if (!user) return new Error("Invalid user ID!");
+
+      return res.send({ data: user });
+    } catch (e) {
+      return next(e);
+    }
   };
   static update = (req: Request, res: Response, next: NextFunction) => {
     return res.send({});

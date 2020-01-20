@@ -7,4 +7,5 @@ export const setupRoutes = (app: Express) => {
 
   app.get(`/users`, UserController.index);
   app.post(`/users`, UserController.create);
+  app.get(`/users/:userId`, UserController.show);
 };

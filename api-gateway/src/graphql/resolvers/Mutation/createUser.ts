@@ -1,7 +1,7 @@
 import { UsersService } from "../../../adapters/UsersService";
 
 // TODO: Improving typing here
-type UserData = { data: User }
+export type UserData = { data: User }
 type User = {
   id: string;
   email: string;

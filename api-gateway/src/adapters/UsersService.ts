@@ -8,13 +8,26 @@ type CreateUserType = {
   password: string;
 };
 
-type CreateUserSessionType = CreateUserType;
+type FetchUserType = {
+  userId: string;
+};
+
+type CreateUserSessionType = {
+  email: string;
+  password: string;
+};
 
 export class UsersService {
   static async create({ email, password }: CreateUserType) {
     const body = await got
       .post(`${USERS_SERVICE_URI}/users`, { json: { email, password } })
       .json();
+
+    return body;
+  }
+
+  static async fetch({ userId }: FetchUserType) {
+    const body = await got.get(`${USERS_SERVICE_URI}/users/${userId}`).json();
 
     return body;
   }
