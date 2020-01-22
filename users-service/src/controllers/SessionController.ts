@@ -1,6 +1,6 @@
 import { compareSync } from "bcryptjs";
 import { NextFunction, Request, Response } from "express";
-import { getRepository } from "typeorm";
+import { getRepository, DeleteResult } from "typeorm";
 import { UserEntity } from "../database/entities/UserEntity";
 import { BaseController } from "./BaseController";
 import { addHours } from "date-fns";
@@ -61,6 +61,19 @@ export class SessionController implements BaseController {
       return res.send({
         data: { ...userSession, userId: userSession.user.id }
       });
+    } catch (e) {
+      return next(e);
+    }
+  };
+
+  static delete = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userSessionRepository = getRepository(UserSessionEntity);
+      await userSessionRepository.delete({
+        id: req.params.sessionId
+      });
+
+      return res.send({ deleted: true });
     } catch (e) {
       return next(e);
     }

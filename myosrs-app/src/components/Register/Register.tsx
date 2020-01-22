@@ -10,46 +10,58 @@ import {
   Spinner
 } from "@pqt/components";
 import gql from "graphql-tag";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { FieldError, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { setSession } from "../../store/reducers/session";
+import * as yup from "yup";
+import { Redirect } from "react-router-dom";
 
 const mutation = gql`
   mutation($email: String!, $password: String!) {
-    createUserSession(email: $email, password: $password) {
+    createUser(email: $email, password: $password) {
       id
-      user {
-        id
-        email
-      }
     }
   }
 `;
 
-export const Login = () => {
-  const dispatch = useDispatch();
-  const [createUserSession] = useMutation(mutation);
+const validationSchema = yup.object().shape({
+  email: yup.string().required(),
+  password: yup
+    .string()
+    .required()
+    .test(
+      "matchConfirmPassword",
+      "Password is not the same as the confirmation password",
+      function() {
+        console.log(this.parent.password === this.parent.confirmPassword);
+        return this.parent.password === this.parent.confirmPassword;
+      }
+    )
+});
+
+export const Register = () => {
+  const [redirect, setRedirect] = useState(false);
+  const [createUser] = useMutation(mutation);
   const {
     errors,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
     handleSubmit,
-    register
-  } = useForm();
+    register,
+    reset
+  } = useForm({ mode: "onChange", validationSchema });
   const onSubmit = handleSubmit(async ({ email, password }) => {
-    const {
-      data: { createUserSession: createdSession }
-    } = await createUserSession({
-      variables: { email, password }
-    });
-
-    dispatch(setSession(createdSession));
+    await createUser({ variables: { email, password } });
+    reset();
+    setRedirect(true);
   });
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Fragment>
       <form onSubmit={onSubmit}>
-        <Card title="Login">
+        <Card title="Register">
           <CardBody>
             <FormGroup
               label="Email"
@@ -81,17 +93,33 @@ export const Login = () => {
               }
               note={(errors?.password as FieldError)?.message}
             />
+            <FormGroup
+              label="Confirm Password"
+              control={
+                <FormControlPassword
+                  name="confirmPassword"
+                  disabled={isSubmitting}
+                  ref={register({
+                    required: {
+                      value: true,
+                      message: "Password Confirmation is required"
+                    }
+                  })}
+                />
+              }
+              note={(errors?.confirmPassword as FieldError)?.message}
+            />
             <FormActions>
               <Button
                 variant="primary"
                 fill
-                text="Sign in"
+                text="Sign up"
                 size="medium"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isValid}
                 iconRight={
                   isSubmitting && <Spinner fill="currentColor" size="20" />
                 }
-              ></Button>
+              />
             </FormActions>
           </CardBody>
         </Card>

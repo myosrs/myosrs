@@ -21,6 +21,10 @@ type FetchSessionType = {
   sessionId: string;
 };
 
+type DeleteUserSessionType = {
+  sessionId: string;
+};
+
 export class UsersService {
   static async create({ email, password }: CreateUserType) {
     const body = await got
@@ -47,6 +51,14 @@ export class UsersService {
   static async fetchSession({ sessionId }: FetchSessionType) {
     const body = await got
       .get(`${USERS_SERVICE_URI}/sessions/${sessionId}`)
+      .json();
+
+    return body;
+  }
+
+  static async deleteSession({ sessionId }: DeleteUserSessionType) {
+    const body = await got
+      .delete(`${USERS_SERVICE_URI}/sessions/${sessionId}`)
       .json();
 
     return body;
