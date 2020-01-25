@@ -1,0 +1,5 @@
+# Redirect default Netlify subdomain to primary domain
+https://myosrs.netlify.com/* https://next.myosrs.com/:splat 301!
+
+# Catch all inbound routes and send them to React Router
+/*    /index.html   200
