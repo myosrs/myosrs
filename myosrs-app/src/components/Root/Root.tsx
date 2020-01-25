@@ -1,12 +1,15 @@
 import { Container } from "@pqt/components";
 import gql from "graphql-tag";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { client } from "../../api/Client";
 import { setSession } from "../../store/reducers/session";
 import { AccountDetails } from "../Account/AccountDetails";
 import { Register } from "../Register/Register";
+import { MasterHeader } from "../Master/MasterHeader";
+import { Accounts } from "../Accounts/Accounts";
+
 const query = gql`
   query {
     userSession(me: true) {
@@ -36,19 +39,27 @@ export const Root = () => {
   if (!init) return <div>Loading...</div>;
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Container>
-            <AccountDetails />
-          </Container>
-        </Route>
-        <Route exact path="/register">
-          <Container>
-            <Register />
-          </Container>
-        </Route>
-      </Switch>
-    </Router>
+    <Fragment>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <MasterHeader />
+            <Container
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <Accounts />
+              <div>
+                <AccountDetails />
+              </div>
+            </Container>
+          </Route>
+          <Route exact path="/register">
+            <Container>
+              <Register />
+            </Container>
+          </Route>
+        </Switch>
+      </Router>
+    </Fragment>
   );
 };

@@ -32,7 +32,6 @@ const validationSchema = yup.object().shape({
       "matchConfirmPassword",
       "Password is not the same as the confirmation password",
       function() {
-        console.log(this.parent.password === this.parent.confirmPassword);
         return this.parent.password === this.parent.confirmPassword;
       }
     )

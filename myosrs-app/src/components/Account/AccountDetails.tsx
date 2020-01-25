@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Login } from "../Login/Login";
+import { Dropdown } from "@pqt/components";
 import gql from "graphql-tag";
+import React, { Fragment } from "react";
 import { useMutation } from "react-apollo";
+import { useDispatch, useSelector } from "react-redux";
 import { clearSession } from "../../store/reducers/session";
-import { Button } from "@pqt/components";
+import { Login } from "../Login/Login";
 
 const mutation = gql`
   mutation($sessionId: ID!) {
@@ -21,14 +21,19 @@ export const AccountDetails = () => {
   if (session)
     return (
       <Fragment>
-        <div>Logged in as {session.user.email}</div>
-        <Button
-          onClick={e => {
-            e.preventDefault();
-            dispatch(clearSession());
-            deleteUserSession({ variables: { sessionId: session.id } });
-          }}
-          text="Logout"
+        <Dropdown
+          toggle={<div>Logged in as {session.user.email}</div>}
+          menu={[
+            <div
+              onClick={e => {
+                e.preventDefault();
+                dispatch(clearSession());
+                deleteUserSession({ variables: { sessionId: session.id } });
+              }}
+            >
+              Logout
+            </div>
+          ]}
         />
       </Fragment>
     );

@@ -1,0 +1,12 @@
+.MasterHeader {
+  background-color: white;
+  border-bottom: 1px solid #d5d6d9;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  min-height: 50px;
+  z-index: 9999;
+}

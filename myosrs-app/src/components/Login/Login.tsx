@@ -58,6 +58,7 @@ export const Login = () => {
                   placeholder="john.doe@company.com"
                   name="email"
                   disabled={isSubmitting}
+                  autoFocus
                   ref={register({
                     required: {
                       value: true,

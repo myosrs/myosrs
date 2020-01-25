@@ -2,17 +2,17 @@ import { getRepository, Repository } from "typeorm"
 import { AccountEntity } from "../database/entities/AccountEntity"
 import { fetchPlayerByName } from "../utils/APIWrapper"
 
-interface PlayerProps {
+interface AccountProps {
   entity?: AccountEntity
   name?: string
 }
 
-export class Player {
+export class Account {
   private _entity?: AccountEntity
   private _name?: string
   private _repo: Repository<AccountEntity>
 
-  constructor({ name, entity }: PlayerProps) {
+  constructor({ name, entity }: AccountProps) {
     this._repo = getRepository(AccountEntity)
 
     if (name === undefined && entity === undefined) {
