@@ -13,7 +13,7 @@
     "test": "echo \"Write tests! -> myosrs/accounts-service\""
   },
   "dependencies": {
-    "apollo-server": "^2.9.16",
+    "apollo-server": "^2.14.2",
     "apollo-server-express": "^2.9.16",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
